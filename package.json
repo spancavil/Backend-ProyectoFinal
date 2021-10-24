@@ -1,0 +1,39 @@
+{
+  "name": "proyecto-final",
+  "version": "1.0.0",
+  "description": "Coderhouse backend final project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js dev",
+    "prod": "nodemon server.js prod",
+    "fork": "pm2 start server.js --name='ServerFork' -- 8081",
+    "cluster": "pm2 start server.js --name='ServerCluster' -i max -- 8082"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "connect-mongo": "^4.5.0",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.7",
+    "mongoose": "^5.13.8",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.3",
+    "mysql": "^2.18.1",
+    "nodemailer": "^6.6.3",
+    "nodemon": "^2.0.12",
+    "passport": "^0.4.1",
+    "passport-facebook": "^3.0.0",
+    "passport-local": "^1.0.0",
+    "pug": "^3.0.2",
+    "twilio": "^3.67.1",
+    "winston": "^3.3.3",
+    "yargs": "^17.2.1"
+  }
+}

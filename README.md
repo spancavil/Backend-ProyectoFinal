@@ -38,6 +38,9 @@ No requiere bodies
 
 ## Notas importantes
 
+- Request para usar con POSTMAN:
+``
+
 - Para acceder a entorno de desarrollo simplemente escribir por consola `npm run dev`. Para entorno de producción `npm run prod`.
 Se toman argumentos a través de yargs y se configura la persistencia, no hay 2 archivos .env, sólo 1.
 
@@ -52,13 +55,5 @@ Se toman argumentos a través de yargs y se configura la persistencia, no hay 2 
 Sign-up => Login => Vista de datos/menú del usuario => Carrito => Checkout
 ````
 
-- A partir de la vista se solicitan siempre credenciales (debe estar loggeado el usuario para acceder).
-
-- Se añadieron dos rutas más al carrito que son: ver carrito y checkout.
-
-- En EJS se encontrará también lógica JavaScript. En dicha lógica para acceder a la información ya renderizada se hace a través del DOM.
-
-- Se separaron todas las rutas en 3 routers distintos y quedó limpio el server.js
-
-- Para ejecutar los test de rendimiento con artillery se llevó a cabo el procedimiento descripto en testRendimiento
+- Motores de plantillas utilizados: EJS y PUG (este último solamente para renderizar la configuración del server)
 

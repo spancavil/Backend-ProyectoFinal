@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
-const productosMongo = require('./ProductosMongo');
 
 //Creamos un esquema de orden que corresponde a un array de esquema de roductos
 const schema = mongoose.Schema({
-    orden: [productosMongo]
+    orden: Array,
+    buyer: String,
+    createdAt: String,
 });
 
-const Users = mongoose.model('Users', schema);
+const Orders = mongoose.model('Orders', schema);
 
-module.exports = Users;
+module.exports = Orders;

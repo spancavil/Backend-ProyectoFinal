@@ -1,0 +1,21 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='icon' type='image/png' href='iconNodeJs.svg')
+  title Tercera preentrega - Backend
+  body(style = "background-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(144, 243, 149));")
+    div(style = "display: flex; flex-direction: row; justify-content: space-between; align-items: center")
+      h2 Configuracion renderizada con Pug:
+      button(onclick='location.href = "/datos"' style='display: flex; justify-content: center; align-items: center; background-color: green; color: black; width: 100px; height: 40px; border-radius: 4px;') 
+        h3 Go back 
+    div(style = "display: flex; flex-direction: column; justify-content: center; align-items: center; color: blue")
+      h1 Puerto: #{config.PORT}
+      h1 Admin email: #{config.ADMINEMAIL}
+      h1 Tipo de persistencia: #{config.PERSISTENCE}
+      h1 Tiempo de expiración de sesión: #{config.EXPIRES_IN} minutos
+      h1 OS: #{OS}
+      h2 Directorio actual: #{current}
+      h1 Version: #{version}
+

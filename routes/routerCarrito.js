@@ -2,6 +2,7 @@ const express = require ('express');
 const routerCarrito = express.Router();
 
 const Carrito = require ('../api/Carrito');
+const { loggerWarn } = require('../libs/loggerWinston');
 const { sendGmailOrder } = require('../libs/nodeMailer');
 
 const carrito = new Carrito();
@@ -32,7 +33,6 @@ routerCarrito.post('/agregar/:id', async (req, res)=>{
 //DELETE /carrito/borrar/:id quitamos del carrito un producto por su id.
 routerCarrito.delete('/borrar/:id', async (req, res) => {
     const response = await carrito.borrar(req.params.id);
-    console.log("entro a borrar")
     res.json(response);
 })
 
@@ -59,13 +59,33 @@ routerCarrito.post('/checkout', checkAuth, async (req,res)=>{
     const {buyer, textoCompra, phone} = req.body;
     const email = req.user.email || req.user.emails[0].value;
 
-    console.log(email);
+    const responseGuardar = await carrito.guardarOrder(buyer);
+    console.log("Orders: ", responseGuardar);
+
     const response = await carrito.borrarCarrito(buyer);
     if (response.n > 0) {
         //Enviamos el pedido por mail al admin
         sendGmailOrder(buyer, textoCompra, phone, email)
     }
     res.send(response)
+})
+
+routerCarrito.get('/orders', checkAuth, async (req,res) => {
+
+    const user = req.user.username || req.user.displayName;
+    const photo = req.user.foto || req.user.photos[0].value;
+    const phone = req.user.telefono || 'Sin teléfono definido';
+
+    console.log(user);
+
+    const orders = await carrito.listarOrdenesComprador(user);
+    res.render('./orders.ejs', {
+        orders,
+        cantidad: orders.length,
+        photo,
+        user,
+        phone,
+    })
 })
 
 function checkAuth(req, res, next) {

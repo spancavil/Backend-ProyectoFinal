@@ -32,15 +32,20 @@
             <button class="btn btn-success my-3" onclick="goLogin()">Iniciar sesión con facebook</button>
     
             <hr>
-            <div class="text-center"></div>
+            <div class="d-flex justify-content-between align-items-center">
               <button class="btn btn-success my-3" onclick="goSignup()">SIGN-UP</button>
+              <button class="btn btn-primary my-3" onclick="goConfig()">VIEW SERVER CONFIG</button>
             </div>
         <script>
             const goSignup = () => {
                 location.href = '/signup'
             }
             const goLogin = () => {
-            location.href = '/login-facebook'
+                location.href = '/login-facebook'
+            }
+
+            const goConfig = () => {
+                location.href = '/config'
             }
         </script>
             

@@ -6,7 +6,8 @@ const { loggerError, loggerConsole } = require('../../libs/loggerWinston');
 //Connection mongo Atlas (implementable local)
 const {ALOJAMIENTO} = require ('../../cfg/config');
 require(`../../databases/mongo${ALOJAMIENTO}`);
-
+const Orders = require('../../models/Orders')
+//console.log(Orders);
 
 class Mongo extends CarritoI{
     constructor(){
@@ -73,6 +74,53 @@ class Mongo extends CarritoI{
         } catch (error) {
             loggerConsole ('debug', "Error al borrar el carrito: ", error)
             loggerError.log('error',"Error al borrar un carrito en Mongo: ", e)
+        }
+    }
+
+    async guardarOrder(buyer){
+        try {
+            const productos = await CarritoMongo.find({"buyer": buyer});
+            const response = await Orders.create({
+                orden: productos,
+                buyer,
+                createdAt: new Date().toLocaleString()
+            })
+            return response;
+        } catch (error) {
+            loggerError.log('error', 'Error al guardar una order: ', error.message);
+            loggerConsole.log('debug', 'Error al guardar una order: ', error.message)
+        }
+    }
+
+    async listarOrdenesComprador(buyer){
+        try {
+            const ordenes = await Orders.find({"buyer": buyer});
+            if (ordenes){
+                return ordenes;
+            }
+            else {
+                return {message: `No hay órdenes cargadas de ${buyer}`}
+            }
+        } catch (error) {
+            loggerError.log('error', 'Error al listar orders by buyer: ', error.message);
+            loggerConsole.log('debug', 'Error al listar orders by buyer: ', error.message)
+
+        }
+    }
+    
+    async listarOrdenes(){
+        try {
+            const ordenes = await Orders.find({});
+            if (ordenes){
+                return ordenes;
+            }
+            else {
+                return {message: "No hay órdenes cargadas"}
+            }
+        } catch (error) {
+            loggerError.log('error', 'Error al listar all orders: ', error.message);
+            loggerConsole.log('debug', 'Error al listar all orders: ', error.message)
+
         }
     }
 }

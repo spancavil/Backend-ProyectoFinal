@@ -125,6 +125,14 @@ routerAccount.get('/logout', (req, res) => {
     res.render('logout.ejs');
 })
 
+routerAccount.get('/config', (req, res) => {
+    res.render('config.pug', {
+        config: config,
+        OS: process.platform,
+        version: process.version,
+        current: process.cwd()});
+})
+
 //implementable a futuro, actualmente sólo se utiliza session combinado con passport.
 routerAccount.post('/get-token', (req, res)=> {
     const {username, userId} = req.body;

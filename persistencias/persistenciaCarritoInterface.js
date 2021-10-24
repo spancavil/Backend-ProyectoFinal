@@ -20,6 +20,18 @@ class CarritoI {
     borrarCarrito(){
         throw new Error('Método borrar carrito no implementado');
     }
+
+    guardarOrder(buyer){
+        throw new Error('Método guardarOrder no implementado');
+    }
+
+    listarOrdenesComprador(buer){
+        throw new Error('Método listar órdenes de comprador no implementado');
+    }
+    
+    listarOrdenes(){
+        throw new Error('Método listar todas las órdenes no implementado');
+    }
 }
 
 module.exports = CarritoI;

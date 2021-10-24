@@ -11,7 +11,6 @@ const config = {
     FACEBOOK_CLIENT_ID : process.env.FACEBOOK_CLIENT_ID,
     FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
     MONGOCONN : process.env.MONGOCONN,
-    DESTINATARIO: process.env.DESTINATARIO,
     ADMINEMAIL: process.env.ADMINEMAIL,
     USERGMAIL: process.env.USERGMAIL,
     PASSGMAIL: process.env.PASSGMAIL,

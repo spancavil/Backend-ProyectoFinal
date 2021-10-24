@@ -31,16 +31,18 @@ app.use(express.urlencoded({ extended: true }));
 //Morgan nos informa en forma breve de cada uso que se la da a nuestra app
 app.use(morgan('dev'));
 
-//Atajamos todos los posibles errores del server. Lo renderizamos mediante un pug.
-app.use((err, req, res, next) => {
-    console.error(err.message);
-    return res.status(500).send('Oops! something went wrong...');
-});
-
 //Motor de plantillas EJS y PUG
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.set('view engine', 'pug');
+
+//Atajamos todos los posibles errores del server. Lo renderizamos mediante un pug.
+app.use((err, req, res, next) => {
+    loggerError.log('error', 'Error: ',err.message);
+    loggerConsole.log('debug', 'Error: ',err.message )
+    res.status(500).render('error.pug', {error: err});
+    next();
+});
 
 app.use(session({
     store: MongoStore.create({

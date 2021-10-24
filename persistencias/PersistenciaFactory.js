@@ -26,7 +26,7 @@ class Factory {
             let modulo = require(process.cwd() + `/persistencias/${this.type}/${this.persistence}`);
             return modulo;
         } catch (e) {
-            loggerConsole.log('debug', "Tipo de persistencia no encontrada.", e);
+            loggerConsole.log('debug', "Tipo de persistencia no encontrada.", e.message);
             loggerError.log('error', "Tipo de persistencia no encontrada.");
         }
     }

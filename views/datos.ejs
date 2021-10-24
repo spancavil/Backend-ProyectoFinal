@@ -1,8 +1,6 @@
 <%- include('./layout')-%>
     <style>
         body {
-            margin: 10px;
-            padding: 5px;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
@@ -34,13 +32,17 @@
         <span>THE BACKEND BURGER</span>
         <span class="p-3">Bienvenido <%=username%></span>
 
+        <button class="btn btn-success my-3" style="position: absolute; right: 150px;" onclick="location.href='/carrito/orders'">
+            My orders
+        </button>
+
         <button class="btn btn-success my-3" style="position: absolute; right: 50px;"
             onclick="location.href='/logout'">
             Log out
         </button>
 
         <span 
-        style="font-size: 1.5rem; color: lightblue; position: absolute; right: 190px;"
+        style="font-size: 1.5rem; color: lightblue; position: absolute; right: 260px; cursor:default"
         id="carrito" 
         cantidad=<%=productosEnCarritoFiltrados%>>
             <i class="fas fa-shopping-cart"></i>
@@ -59,7 +61,7 @@
         <br>
         <%if (hayProductos===true) {%>
             <div class="table-responsive">
-                <table class="table table-dark ">
+                <table class="table table-dark table-striped table-hover">
                     <tr>
                         <th>Nombre</th>
                         <th>Descripción</th>
@@ -98,7 +100,12 @@
         cantidadDeProductosEnCart = cart.getAttribute("cantidad");
 
         if (cantidadDeProductosEnCart>0){
-            cart.setAttribute('style', 'font-size: 1.5em; color: red; position: absolute; right: 190px;')
+            cart.setAttribute('style', 'font-size: 1.5em; color: red; position: absolute; right: 260px; cursor:pointer; transition: all 0.6s ease')
+            cart.addEventListener( 'mouseover', ()=> {
+                cart.setAttribute('style', 'font-size: 1.5em; color: red; position: absolute; right: 260px; cursor:pointer; transform: scale(1.3); transition: all 0.6s ease')})
+            cart.addEventListener( 'mouseout', ()=> {
+                cart.setAttribute('style', 'font-size: 1.5em; color: red; position: absolute; right: 260px; cursor:pointer; transition: all 0.6s ease')})
+
             icon[0].innerHTML = `(${cantidadDeProductosEnCart})`;
             cart.addEventListener('click', ()=> location.href = "/carrito/cart")
         }

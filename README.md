@@ -19,13 +19,13 @@ Se toman argumentos a través de yargs y se configura la persistencia, no hay 2 
 
 - Se escriben archivos con loggers con cada warn y con cada error de la app. En el caso que se acceda a información sensible (datos) se escribe un warn de acceso, con el nombre de usuario y id.
 
-- De todos modos en el código se añadió un ruta `/get-token`, que obtiene un JSON web token en caso de necesitar a futuro.
 
 - Se generaron las vistas correspondientes acorde a cada etapa del flow de la app.
 ````
-Sign-up => Login => Vista de datos/menú del usuario => Carrito => Checkout
+Sign-up => Login => Vista de datos/menú del usuario => Carrito => Checkout => View orders
 ````
 
-- Motores de plantillas utilizados: EJS y PUG (este último solamente para renderizar la configuración del server)
+- Motores de plantillas utilizados: EJS y PUG, este último solamente para renderizar la configuración del server y en caso de haber un error como requisito de la consigna.
 
+- Se añadió un ruta `/get-token`, que obtiene un JSON web token en caso de necesitar a futuro.
 

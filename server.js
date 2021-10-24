@@ -38,11 +38,12 @@ app.set('view engine', 'pug');
 
 //Atajamos todos los posibles errores del server. Lo renderizamos mediante un pug.
 app.use((err, req, res, next) => {
-    loggerError.log('error', 'Error: ',err.message);
-    loggerConsole.log('debug', 'Error: ',err.message )
+    console.log(err.message);
+    loggerError.log('error', 'Error: ',err);
+    loggerConsole.log('debug', 'Error: ',err )
     res.status(500).render('error.pug', {error: err});
-    next();
 });
+
 
 app.use(session({
     store: MongoStore.create({
@@ -69,6 +70,11 @@ app.use('/carrito', routerCarrito);
 app.use('/', routerAccount)
 
 const PORT = config.PORT;
+
+//Si no se encuentra la ruta, se envía un error 404
+app.use((req, res, next) => {
+    res.status(404).render('error.pug', {error: {message: `No se encontró la ruta especificada ${req.url}`}});
+});
 
 const server = app.listen(PORT, () => {
     loggerConsole.log('debug', `Server listening at http://localhost:${PORT}`);

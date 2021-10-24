@@ -20,7 +20,7 @@ const carrito = new Carrito;
 const { loggerWarn } = require('../libs/loggerWinston');
 
 //Funciones para envío de mail y sms modularizadas
-const {sendMailGmailSignup} = require('../libs/nodeMailer');
+const {sendMailGmailwithOptions} = require('../libs/nodeMailer');
 
 //Obtenemos un Token, en caso de necesitar en un futuro
 const { getJwtToken } = require('../auth/jwt');
@@ -46,14 +46,14 @@ routerAccount.get('/successsignup', async (req, res) => {
 
     //Encontramos el último usuario agregado, ordenado por id de manera descendente
     let lastUserAdded = await Users.find({}).sort({_id: -1}).limit(1)
-    //console.log("Ultimo usuario:", lastUserAdded);
+    
     const mailOptions = {
         from: 'The backend burger',
         to: config.ADMINEMAIL,
         subject: `Nuevo usuario registrado al sitio!`,
         html: `<h4 style="color: blue;">Sign up con username: ${lastUserAdded[0].username}, email: ${lastUserAdded[0].email}. Fecha: ${new Date().toLocaleString()}</h4>`
     }
-    sendMailGmailSignup(mailOptions);
+    sendMailGmailwithOptions(mailOptions);
     loggerWarn.warn("warn", `Sign up con username: ${lastUserAdded[0].username}, email: ${lastUserAdded[0].email}. Fecha: ${new Date().toLocaleString()}`)
     res.render(`successsignup.ejs`);
 })

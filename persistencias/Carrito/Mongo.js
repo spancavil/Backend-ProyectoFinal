@@ -3,11 +3,11 @@ const CarritoI = require ('../../persistencias/persistenciaCarritoInterface')
 const ProductoMongo = require ('../../models/ProductosMongo');
 const { loggerError, loggerConsole } = require('../../libs/loggerWinston');
 
-//Connection mongo Atlas (implementable local)
+//Connection mongo Atlas (sólo disponible atlas, pero se puede configurar a local)
 const {ALOJAMIENTO} = require ('../../cfg/config');
 require(`../../databases/mongo${ALOJAMIENTO}`);
+
 const Orders = require('../../models/Orders')
-//console.log(Orders);
 
 class Mongo extends CarritoI{
     constructor(){
@@ -30,7 +30,8 @@ class Mongo extends CarritoI{
 
     async listarId(productoId){
         try {
-            const producto = await CarritoMongo.find({productoId: productoId});
+            const producto = await CarritoMongo.findById(productoId);
+            console.log(producto)
             if (producto){
                 return producto;
             }
@@ -61,7 +62,11 @@ class Mongo extends CarritoI{
     async borrar(productoId){
         try {
             const response = CarritoMongo.findById(productoId).deleteOne();
-            return response;
+            if (response.n > 0)
+                return {message: "Producto eliminado del carrito."};
+            else {
+                return {message: "Carrito no encontrado."}
+            }
         } catch (e) {
             loggerError.log('error',"Error al borrar un producto en Mongo: ", e)
         }
@@ -111,7 +116,7 @@ class Mongo extends CarritoI{
     async listarOrdenes(){
         try {
             const ordenes = await Orders.find({});
-            if (ordenes){
+            if (ordenes.length !== 0){
                 return ordenes;
             }
             else {

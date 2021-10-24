@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const config = require('../cfg/config');
 const { loggerError, loggerConsole } = require('./loggerWinston');
 
-function sendMailGmailSignup(mailOptions) {
+function sendMailGmailwithOptions(mailOptions) {
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -56,4 +56,4 @@ function sendGmailOrder(buyer, textoCompra, phone, email){
 
 }
 
-module.exports = {sendMailGmailSignup, sendGmailOrder};
+module.exports = {sendMailGmailwithOptions, sendGmailOrder};

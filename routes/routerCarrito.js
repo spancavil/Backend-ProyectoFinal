@@ -3,7 +3,7 @@ const routerCarrito = express.Router();
 
 const Carrito = require ('../api/Carrito');
 const { loggerWarn } = require('../libs/loggerWinston');
-const { sendGmailOrder } = require('../libs/nodeMailer');
+const { sendGmailOrder, sendMailGmailwithOptions } = require('../libs/nodeMailer');
 
 const carrito = new Carrito();
 
@@ -66,10 +66,21 @@ routerCarrito.post('/checkout', checkAuth, async (req,res)=>{
     if (response.n > 0) {
         //Enviamos el pedido por mail al admin
         sendGmailOrder(buyer, textoCompra, phone, email)
+        console.log(textoCompra);
+        
+        //Enviamos el pedido por mail al usuario
+        const mailOptions = {
+            from: 'The backend burger',
+            to: email,
+            subject: `El detalle de su pedido en Backend Burger`,
+            html: textoCompra,
+        }
+        sendMailGmailwithOptions(mailOptions)
     }
     res.send(response)
 })
 
+//Ruta accesible a través del front
 routerCarrito.get('/orders', checkAuth, async (req,res) => {
 
     const user = req.user.username || req.user.displayName;
@@ -86,6 +97,17 @@ routerCarrito.get('/orders', checkAuth, async (req,res) => {
         user,
         phone,
     })
+})
+
+//Obtenemos todas las orders a través de POSTMAN
+routerCarrito.get('/getall-orders', async (req,res) => {
+    const {admin} = req.body;
+    if (admin){
+        const orders = await carrito.listarOrdenes();
+        res.send(orders);
+    } else {
+        res.send({Error: "Only admins see this information"})
+    }
 })
 
 function checkAuth(req, res, next) {

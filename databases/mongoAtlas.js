@@ -6,7 +6,7 @@ const { loggerConsole, loggerError } = require('../libs/loggerWinston');
 const connection = mongoose.connect(config.MONGOCONN, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on('connected', () => {
-    loggerConsole.log('debug','[Mongoose] - connected in: cluster0.vchky.mongodb.net');
+    loggerConsole.log('debug','[Mongoose] - connected in: MongoAtlas DB');
 });
 
 mongoose.connection.on('error', (err) => {

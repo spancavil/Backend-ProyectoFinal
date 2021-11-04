@@ -25,6 +25,7 @@ class Mongo extends CarritoI{
             }
         } catch (e) {
             loggerError.log('error',"Error al leer los mensajes: ", e);
+            loggerConsole.log('error',"Error al leer los mensajes: ", e);
         }
     }
 
@@ -40,6 +41,7 @@ class Mongo extends CarritoI{
             }
         } catch (e) {
             loggerError.log('error',"Error al listar por Id en Mongo: ", e);
+            loggerConsole.log('error',"Error al listar por Id en Mongo: ", e);
         }
     }
 
@@ -56,19 +58,22 @@ class Mongo extends CarritoI{
             }
         } catch (e) {
             loggerError.log('error',"Error al guardar un producto en carrito en mongo: ", e);
+            loggerConsole.log('error',"Error al guardar un producto en carrito en mongo: ", e);
         }
     }
 
     async borrar(productoId){
         try {
-            const response = CarritoMongo.findById(productoId).deleteOne();
+            const response = await CarritoMongo.findById(productoId).deleteOne();
             if (response.n > 0)
                 return {message: "Producto eliminado del carrito."};
             else {
                 return {message: "Carrito no encontrado."}
             }
         } catch (e) {
-            loggerError.log('error',"Error al borrar un producto en Mongo: ", e)
+            loggerError.log('error',"Error al borrar un producto en Mongo: ", e);
+            loggerConsole.log('debug',"Error al borrar un producto en Mongo: ", e)
+
         }
     }
 
@@ -109,7 +114,6 @@ class Mongo extends CarritoI{
         } catch (error) {
             loggerError.log('error', 'Error al listar orders by buyer: ', error.message);
             loggerConsole.log('debug', 'Error al listar orders by buyer: ', error.message)
-
         }
     }
     

@@ -1,6 +1,6 @@
 const ProductosMongo = require("../../models/ProductosMongo");
 const ProductoI = require("../persistenciaProductosInterface");
-const { loggerError } = require("../../libs/loggerWinston");
+const { loggerError, loggerConsole } = require("../../libs/loggerWinston");
 
 //Connection mongo Atlas (implementable local)
 const {ALOJAMIENTO} = require ('../../cfg/config');
@@ -22,6 +22,8 @@ class Mongo extends ProductoI {
             }
         } catch (e) {
             loggerError.log('error', "Error al listar por id en Mongo: ", e);
+            loggerConsole.log('debug', "Error al listar por id en Mongo: ", e);
+
         }
 
     }
@@ -37,6 +39,7 @@ class Mongo extends ProductoI {
             }
         } catch (e) {
             loggerError.log('error', "Error al leer los mensajes: ", e);
+            loggerConsole.log('debug', "Error al leer los mensajes: ", e);
         }
     }
 
@@ -45,25 +48,35 @@ class Mongo extends ProductoI {
             const response = await ProductosMongo.create(producto);
             return response;
         } catch (e) {
-            loggerError.log('error', 'Error al guardar en Mongo: ', e)
+            loggerError.log('error', 'Error al guardar en Mongo: ', e);
+            loggerConsole.log('error', 'Error al guardar en Mongo: ', e);
         }
     }
 
     async actualizar(productoId, producto){
         try {
             const response = await ProductosMongo.findByIdAndUpdate(productoId, producto);
-            return response;
+            if (response !== null){
+                return {message: "Producto actualizado!"}
+            } else{
+                return {message: "No se encontró producto con dicho id"};
+            }
         } catch (error) {
             loggerError.log('error', "Error al actualizar un producto en Mongo: ", e)
+            loggerConsole.log('debug', "Error al actualizar un producto en Mongo: ", e)
         }
     }
 
     async borrar(productoId){
         try {
             const response = ProductosMongo.findByIdAndDelete(productoId);
-            return response;
+            if (response){
+                return {message: "Producto con id" + productoId + " borrado."}
+            }
+            return {message: "Producto no encontrado."};
         } catch (e) {
             loggerError.log('error', "Error al borrar un producto en Mongo: ", e)
+            loggerConsole.log('error', "Error al borrar un producto en Mongo: ", e)
         }
     }
 

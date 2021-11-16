@@ -3,6 +3,9 @@
 #give permission for everything in the server directory
 DIR="/var/www/myapp/server"
 
+#give permission for everything in the express-app directory
+sudo chmod -R 777 /var/www/myapp/server
+
 # #download node and npm (version using in dev)
 # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 # . ~/.nvm/nvm.sh

@@ -12,9 +12,9 @@ sudo chmod -R 777 /var/www/myapp/server
 # nvm install v16.10
 
 #create our working directory if it doesnt exist
-if [ -d "$DIR" ]; then
-  echo "${DIR} exists"
-else
-  echo "Creating ${DIR} directory"
-  mkdir ${DIR}
-fi
+# if [ -d "$DIR" ]; then
+#   echo "${DIR} exists"
+# else
+#   echo "Creating ${DIR} directory"
+#   mkdir ${DIR}
+# fi

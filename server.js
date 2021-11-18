@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 //Motor de plantillas EJS y PUG
-app.set('views', './views');
+app.set('views', './server/views');
 app.set('view engine', 'ejs');
 app.set('view engine', 'pug');
 

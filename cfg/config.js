@@ -1,9 +1,8 @@
-const dotenv = require('dotenv');
 const arguments = require('yargs').argv
 
-dotenv.config()
-
-console.log(arguments);
+const path = require('path');
+const dotenv = require('dotenv');
+dotenv.config({ path: path.join(__dirname, '../.env')});
 
 //Configuramos la persistencia en base a los argumentos:
 const PERSISTENCE = arguments._[0] === "dev" ? "SQLite" : "Mongo";

@@ -37,6 +37,8 @@ app.set('views', './views');
 app.set('view engine', 'ejs');
 app.set('view engine', 'pug');
 
+console.log("Te consologueo la vida papa!!!")
+
 //Atajamos todos los posibles errores del server. Lo renderizamos mediante un pug.
 app.use((err, req, res, next) => {
     console.log(err.message);

@@ -18,5 +18,3 @@ else
   echo "Creating ${DIR} directory"
   mkdir ${DIR}
 fi
-
-pm2 stop all

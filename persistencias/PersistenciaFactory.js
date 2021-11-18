@@ -23,7 +23,7 @@ class Factory {
      */
     getPersist() {
         try {
-            let modulo = require(process.cwd() + `/persistencias/${this.type}/${this.persistence}`);
+            let modulo = require(process.cwd() + `/server/persistencias/${this.type}/${this.persistence}`);
             return modulo;
         } catch (e) {
             loggerConsole.log('debug', "Tipo de persistencia no encontrada.", e.message);
